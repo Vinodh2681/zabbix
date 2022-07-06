@@ -1,0 +1,18 @@
+FROM zabbix/zabbix-web-nginx-pgsql:alpine-6.0-latest
+USER root
+COPY ["tcl_logo.png", "/usr/share/zabbix/"]
+COPY ["side_bar.png", "/usr/share/zabbix/"]
+COPY ["compact.png", "/usr/share/zabbix/"]
+COPY ["brand.conf.php", "/usr/share/zabbix/local/conf/"]
+
+RUN set -eux && \
+    apk add jq && \
+    cd /usr/share/zabbix/ && \
+    rm -f favicon.ico && \
+    cd assets/img && \
+    rm * && \
+    cd .. && \
+    rmdir img && \
+    cd ..
+COPY ["img","/usr/share/zabbix/assets/img/"]
+COPY ["tata.ico", "/usr/share/zabbix/favicon.ico"]
